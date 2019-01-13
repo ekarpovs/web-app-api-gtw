@@ -13,7 +13,7 @@ coverage
 # Dependency directory
 node_modules
 
-# Editors &&
+# Editors
 .vscode
 
 # Ignore built files
