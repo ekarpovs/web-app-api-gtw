@@ -24,8 +24,9 @@ const expressConfig = (app: Application) => {
     saveUninitialized: false,
     secret: env.CLIENT_SECRET,
     store: new RedisStore({
-      host: 'redis',
-      port: 6379,
+      host: env.REDIS_HOST,
+      // host: 'redis',
+      port: parseInt(env.REDIS_PORT, 10),
       ttl :  260,
       // tslint:disable-next-line:object-literal-sort-keys
       logErrors: ((error: string) => {
