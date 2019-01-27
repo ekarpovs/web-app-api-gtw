@@ -61,7 +61,7 @@ jobs:
   component_test:
     docker:
       # specify the version you desire here
-      - image: circleci/node:11-alpine-ram
+      - image: circleci/node:11.0.0
       - image: circleci/redis:4-alpine
 
     working_directory: ~/repo
