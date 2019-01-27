@@ -54,6 +54,7 @@ jobs:
       - run:
           name: Test
           command: npm test
+
       - store_artifacts:
           path: test-results.xml
           prefix: tests
@@ -77,11 +78,14 @@ jobs:
       - run:
         name: build API
         command: npm run build
+
       - run:
-          name: run API
-          background: true
+          name: start API
           command: npm start
+          background: true
+      
       - run sleep 5
+      
       - run:
           name: run test
           command: curl http://localhost:3000
