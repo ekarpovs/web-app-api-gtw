@@ -76,11 +76,11 @@ jobs:
           - v1-dependencies-
       
       - run:
-        name: build API
-        command: npm run build
+          name: build API
+          command: npm run build
 
       - run:
-          name: start API
+          name: running API
           command: npm start
           background: true
       
