@@ -75,7 +75,7 @@ jobs:
           - v1-dependencies-
       - run:
           name: run API
-          command: npm run serve
+          command: npm start
       - run:
           name: run test
           command: curl http://localhost:3000
