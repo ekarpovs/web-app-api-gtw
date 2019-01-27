@@ -74,10 +74,14 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
       
-      - run: npm run build
+      - run:
+        name: build API
+        command: npm run build
       - run:
           name: run API
+          background: true
           command: npm start
+      - run sleep 5
       - run:
           name: run test
           command: curl http://localhost:3000
