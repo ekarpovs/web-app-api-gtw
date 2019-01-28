@@ -64,6 +64,8 @@ jobs:
             - source-v1-{{ .Branch }}-
             - source-v1-
 
+      - checkout
+
       - restore_cache:
           name: Restore Dependences
           keys:
@@ -89,6 +91,8 @@ jobs:
             - source-v1-{{ .Branch }}-{{ .Revision }}
             - source-v1-{{ .Branch }}-
             - source-v1-
+
+      - checkout
 
       - restore_cache:
           name: Restore Dependences
