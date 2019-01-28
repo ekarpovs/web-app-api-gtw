@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  install:
     docker:
       # specify the version you desire here
       - image: circleci/node:11.0.0
@@ -17,61 +17,65 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      - checkout
-
       # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - restore_cache:
-          keys:
+      - restore_cache: 
+          name: Restore Source
+          keys: 
             - source-v1-{{ .Branch }}-{{ .Revision }}
             - source-v1-{{ .Branch }}-
             - source-v1-
 
-      - run: npm install
-      # - run: npm run build
+      - restore_cache:
+          name: Restore Dependences
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - checkout
+
+      - run: 
+          name: Install Dependences
+          command: npm install
 
       - save_cache:
+          name: Save Source
           key: v1-dependencies-{{ checksum "package.json" }}
-          paths:
+          paths: 
             - node_modules
-      - save_cache:
+      - save_cache: 
+          name: Save Dependences
           key: source-v1-{{ .Branch }}-{{ .Revision }}
           paths:
             - ".git"
 
-      # run tests!
-      # - run: npm test
-  test:
+  unit_test:
+    name: Unit Tests
     docker:
-      # specify the version you desire here
       - image: circleci/node:11.0.0
 
     working_directory: ~/repo
 
     steps:
-      # - checkout
-      # - run: npm install
-      - restore_cache:
-          keys:
+      - restore_cache: 
+          name: Restore Source
+          keys: 
             - source-v1-{{ .Branch }}-{{ .Revision }}
             - source-v1-{{ .Branch }}-
             - source-v1-
+
+      - checkout
+
       - restore_cache:
+          name: Restore Dependences
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
+
       - run:
-          name: Test
+          name: Unit Tests
           command: npm test
 
-      # - store_artifacts:
-      #     path: test-results.xml
-      #     prefix: tests
   component_test:
     docker:
       # specify the version you desire here
@@ -81,11 +85,19 @@ jobs:
     working_directory: ~/repo
 
     steps:
+      - restore_cache: 
+          name: Restore Source
+          keys: 
+            - source-v1-{{ .Branch }}-{{ .Revision }}
+            - source-v1-{{ .Branch }}-
+            - source-v1-
+
       - checkout
+
       - restore_cache:
+          name: Restore Dependences
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
       
       - run:
@@ -118,18 +130,18 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test:
+  install_build_test:
     jobs:
-      - build
-      - test:
+      - install
+      - unit_test:
           requires:
-            - build
+            - install
           filters:
             branches:
               only: master
       - component_test:
           requires:
-            - test
+            - unit_test
           filters:
             branches:
               only: master
