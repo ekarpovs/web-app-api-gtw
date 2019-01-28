@@ -144,16 +144,21 @@ workflows:
   install_build_test:
     jobs:
       - install
-      - build
       - unit_test:
           requires:
             - install
           filters:
             branches:
               only: master
-      - component_test:
+      - build:
           requires:
             - unit_test
+          filters:
+            branches:
+              only: master
+      - component_test:
+          requires:
+            - build
           filters:
             branches:
               only: master
