@@ -19,11 +19,11 @@ jobs:
     steps:
       # Download and cache dependencies
       - restore_cache: 
-        name: Restore Source
-        keys: 
-          - source-v1-{{ .Branch }}-{{ .Revision }}
-          - source-v1-{{ .Branch }}-
-          - source-v1-
+          name: Restore Source
+          keys: 
+            - source-v1-{{ .Branch }}-{{ .Revision }}
+            - source-v1-{{ .Branch }}-
+            - source-v1-
 
       - restore_cache:
           name: Restore Dependences
@@ -41,11 +41,13 @@ jobs:
       - save_cache:
           name: Save Source
           key: v1-dependencies-{{ checksum "package.json" }}
-          paths: - node_modules
+          paths: 
+            - node_modules
       - save_cache: 
           name: Save Dependences
           key: source-v1-{{ .Branch }}-{{ .Revision }}
-          paths: - ".git"
+          paths:
+            - ".git"
 
   unit_test:
     name: Unit Tests
@@ -56,12 +58,14 @@ jobs:
 
     steps:
       - restore_cache: 
+          name: Restore Source
           keys: 
           - source-v1-{{ .Branch }}-{{ .Revision }}
           - source-v1-{{ .Branch }}-
           - source-v1-
 
       - restore_cache:
+          name: Restore Dependences
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
