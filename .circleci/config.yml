@@ -76,6 +76,17 @@ jobs:
           name: Unit Tests
           command: npm test
 
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:11.0.0
+
+    working_directory: ~/repo
+
+    steps:
+      - run: sleep 5
+
+
   component_test:
     docker:
       # specify the version you desire here
@@ -133,6 +144,7 @@ workflows:
   install_build_test:
     jobs:
       - install
+      - build
       - unit_test:
           requires:
             - install
