@@ -60,9 +60,9 @@ jobs:
       - restore_cache: 
           name: Restore Source
           keys: 
-          - source-v1-{{ .Branch }}-{{ .Revision }}
-          - source-v1-{{ .Branch }}-
-          - source-v1-
+            - source-v1-{{ .Branch }}-{{ .Revision }}
+            - source-v1-{{ .Branch }}-
+            - source-v1-
 
       - restore_cache:
           name: Restore Dependences
@@ -74,14 +74,6 @@ jobs:
           name: Unit Tests
           command: npm test
 
-      # - save_cache:
-      #     key: source-v1-{{ .Branch }}-{{ .Revision }}
-      #     paths:
-      #       - ".git"
-
-      # - store_artifacts:
-      #     path: test-results.xml
-      #     prefix: tests
   component_test:
     docker:
       # specify the version you desire here
@@ -91,11 +83,17 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      - checkout
+      - restore_cache: 
+          name: Restore Source
+          keys: 
+            - source-v1-{{ .Branch }}-{{ .Revision }}
+            - source-v1-{{ .Branch }}-
+            - source-v1-
+
       - restore_cache:
+          name: Restore Dependences
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
       
       - run:
@@ -133,13 +131,13 @@ workflows:
       - install
       - unit_test:
           requires:
-            - build
+            - install
           filters:
             branches:
               only: master
       - component_test:
           requires:
-            - test
+            - unit_test
           filters:
             branches:
               only: master
