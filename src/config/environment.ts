@@ -1,7 +1,12 @@
 'use strict';
 import dotenv from 'dotenv';
 import fs from 'fs';
-import logger from '../utils/logger';
+// import logger from '../utils/logger';
+
+import { LogWrapper } from 'log-wrapper';
+
+const logWrap = new LogWrapper();
+const logger = logWrap.logger();
 
 // Load environment variables from .env file, where API keys and passwords are configured
 if (fs.existsSync('.env')) {
