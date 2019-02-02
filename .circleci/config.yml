@@ -106,15 +106,10 @@ jobs:
           command: npm run build
 
       - save_cache:
-          name: Save Source
-          key: v1-dependencies-{{ checksum "package.json" }}
+          name: Save Build
+          key: v1-build
           paths: 
-            - node_modules
-      - save_cache: 
-          name: Save Dependences
-          key: source-v1-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - ".git"
+            - dist
 
   component_test:
     docker:
@@ -139,7 +134,12 @@ jobs:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
-      
+
+      - restore_cache:
+          name: Restore Build
+          keys:
+          - v1-build
+
       # - run:
       #     name: build API
       #     command: npm run build
