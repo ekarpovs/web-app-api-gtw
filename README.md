@@ -5,3 +5,13 @@
 
 API proxy for web applications are used with microservices.
 Uses REDIS for session store.
+
+## Running the app locally
+
+
+## Docker
+
+
+## Docker compose
+
+## CircleCI
