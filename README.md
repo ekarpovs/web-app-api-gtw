@@ -7,10 +7,13 @@ API proxy for web applications are used with the [set of microservices](https://
 Uses REDIS for session store.
 
 ## Development
+
 ```bash
 npm run debug
 ```
+
 ## Running the app locally
+
 ```bash
 npm run build
 npm run start
