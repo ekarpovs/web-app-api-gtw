@@ -1,4 +1,3 @@
-'use strict';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { NextFunction, Request, Response } from 'express';

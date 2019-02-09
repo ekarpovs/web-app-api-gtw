@@ -10,19 +10,20 @@ Uses REDIS for session store.
 
 ```bash
 npm run debug
+npm run watch-test
 ```
 
 ## Running the app locally
 
 ```bash
 npm run build
+npm run test
 npm run start
 ```
 =======
 ## Running the app locally
 
 ## Docker
-
 
 ## Docker compose
 

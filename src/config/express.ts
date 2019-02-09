@@ -1,4 +1,3 @@
-'use strict';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import connectRedis from 'connect-redis';
@@ -19,14 +18,13 @@ const expressConfig = (app: Application) => {
   app.use(bodyParser.urlencoded({ extended: true }));
 
   const RedisStore = connectRedis(session);
-  app.use(session({
+  const opt: session.SessionOptions = {
     resave: false,
     saveUninitialized: false,
-    secret: env.CLIENT_SECRET,
+    secret: env.CLIENT_SECRET || 'defaultSecret',
     store: new RedisStore({
       host: env.REDIS_HOST,
-      // host: 'redis',
-      port: parseInt(env.REDIS_PORT, 10),
+      port: parseInt(env.REDIS_PORT || '6379', 10),
       ttl :  260,
       // tslint:disable-next-line:object-literal-sort-keys
       logErrors: ((error: string) => {
@@ -34,7 +32,9 @@ const expressConfig = (app: Application) => {
         console.log('Redis error', error);
       })
     })
-  }));
+  };
+
+  app.use(session(opt));
 
   // const sessionStore = new session.MemoryStore();
 

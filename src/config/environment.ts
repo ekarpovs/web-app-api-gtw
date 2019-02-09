@@ -1,4 +1,3 @@
-'use strict';
 import dotenv from 'dotenv';
 import fs from 'fs';
 // import logger from '../utils/logger';
