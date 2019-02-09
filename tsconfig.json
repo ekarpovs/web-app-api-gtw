@@ -14,7 +14,9 @@
               "src/types/*",
               "*"
           ]
-      }
+      },
+      /* Strict Type-Checking Options */
+      "strict": true /* Enable all strict type-checking options. */
   },
   "include": [
       "src/**/*"

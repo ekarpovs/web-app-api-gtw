@@ -1,4 +1,3 @@
-'use strict';
 import { NextFunction, Request, Response } from 'express';
 
 export let getHome = (req: Request, res: Response, next: NextFunction) => {

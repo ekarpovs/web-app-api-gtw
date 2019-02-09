@@ -1,4 +1,3 @@
-'use strict';
 import { NextFunction, Request, Response } from 'express';
 
 import * as env from '../config/environment';
