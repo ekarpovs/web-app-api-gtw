@@ -20,6 +20,8 @@ npm run build
 npm run test
 npm run start
 ```
+=======
+## Running the app locally
 
 ## Docker
 
