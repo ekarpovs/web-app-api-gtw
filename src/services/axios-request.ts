@@ -1,10 +1,10 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, Method } from 'axios';
 
 import { NextFunction, Request, Response } from 'express';
 
 import * as env from '../config/environment';
 
-export let configRequest = (req: Request, base: string, route: string, type: string): AxiosRequestConfig => {
+export let configRequest = (req: Request, base: string, route: string, type: Method): AxiosRequestConfig => {
   return  {
       baseURL: base,
       data: req.body,
