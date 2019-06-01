@@ -19,6 +19,7 @@ npm run watch-test
 npm run build
 npm run test
 npm run start
+npm run debug
 ```
 =======
 
