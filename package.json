@@ -29,7 +29,7 @@
     "express": "^4.17.1",
     "express-session": "^1.16.1",
     "log-wrapper": "git://github.com/ekarpovs/log-wrapper.git",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
